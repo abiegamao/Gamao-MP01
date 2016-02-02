@@ -52,8 +52,6 @@ class Student:
 
 
 
-import os
-
 
 directory = raw_input("Enter Directory Path: ")
 directory.lower()
@@ -101,25 +99,3 @@ for i in studentIDs:
             print x.getAction("offsets")
             print x.getAction("behaviors")
             print x.getAction("affects")
-# for i in mstudents:
-#     print i.getID()
-#     print i.getOffsets()
-#     print i.getBehaviors()
-#     print i.getAffects(),"\n"
-    # else:
-    #     for i in students:
-    #         if
-
-
-
-
-
-    #     students[i]= Student(studentID)
-    #     students[i].addActions(theList[i][0],theList[i][1],theList[i][2])
-    # else: # existing , just add action
-    #     students[i].addActions(theList[i][0],theList[i][1],theList[i][2])
-
-
-
-
-
