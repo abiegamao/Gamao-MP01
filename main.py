@@ -5,11 +5,38 @@
 import csv,os
 
 
+def listdir_nohidden(path):
+        for f in os.listdir(path):
+            if not f.startswith('.'):
+
+                yield f
+class Initialize:
+
+    def __init__(self, path):
+        self.path = path
+        self.paths = []
+        self.files = []
+
+        # counter = 0
+        # for folder in listdir_nohidden(self.path):
+        #     self.paths.append(self.path + folder + "/")
+        #     counter += 1
+        for f in listdir_nohidden(self.path):
+            self.files.append(f)
+
+
+    def gefFiles(self):
+        return self.files
+
+
+
+
 class Student:
 
     def __init__(self, studentID):
         self.id=studentID
         self.actions = []
+        self.count = len(self.actions)
 
     def getID(self):
         return self.id
@@ -46,32 +73,35 @@ class Student:
         strx = ""
         strx += self.id
         strx += "\n"
-        #strx += "\n\nCount: " + str(self.getActionCount())
 
         return strx
 
 
 
-
-directory = raw_input("Enter Directory Path: ")
-directory.lower()
-
-print directory
-
-
 theList = list()
 theDict = dict()
-with open('files/sample.csv', 'rb') as ifile:
-    reader = csv.reader(ifile, delimiter=',')
-    for row in reader:
-        theList.append(row)
+path = raw_input("Enter Directory Path: ")
+path.lower()
+a = Initialize(path)
+
+for i in a.gefFiles():
+    directory = path + "/" + i
+    with open(directory, 'rb') as ifile:
+        reader = csv.reader(ifile, delimiter=',')
+        row1 = next(reader)
+        for row in reader:
+            theList.append(row)
+
+
+
+
 
 
 mstudents = list() # ARRAY OF STUDENT CLASSES
 
 for i in range(len(theList)):
-    if i == 0:
-        continue
+    # if i == 0:
+    #     continue
 
     studentID = theList[i][0]
     if studentID not in theDict: # new entry
@@ -93,9 +123,16 @@ for i in theDict.keys():
 
 studentIDs.sort()
 for i in studentIDs:
-    print i + "\n"
+    print i
+
     for x in mstudents:
         if i == x.getID():
+            #print x.getActionCount()
             print x.getAction("offsets")
             print x.getAction("behaviors")
             print x.getAction("affects")
+            print ""
+
+
+
+
