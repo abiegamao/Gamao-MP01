@@ -1,8 +1,8 @@
 # CSV Merger
 # Joenabie Gamao
 # 01/28/2016
-
-import csv
+# References:  http://www.tutorialspoint.com/python/
+import csv,os
 
 
 class Student:
@@ -26,25 +26,21 @@ class Student:
     def getActions(self):
         for i in self.actions:
             return i
+    def getEquiv(self,argument):
+        switcher = {
+        "offsets": 0,
+        "behaviors": 1,
+        "affects": 2,
+        }
+        return switcher.get(argument, "nothing")
 
-    def getOffsets(self):
+    def getAction(self,action):
+        action.lower()
+        num = self.getEquiv(action)
         strx = ""
         for i in self.actions:
-            strx += i[0] + ", "
+            strx += i[num] + ", "
         return strx
-
-    def getBehaviors(self):
-        strx = ""
-        for i in self.actions:
-            strx += i[1] + ", "
-        return strx
-
-    def getAffects(self):
-        strx = ""
-        for i in self.actions:
-            strx += i[2] + ", "
-        return strx
-
 
     def __str__(self):
         strx = ""
@@ -99,12 +95,12 @@ for i in theDict.keys():
 
 studentIDs.sort()
 for i in studentIDs:
-    print i
+    print i + "\n"
     for x in mstudents:
         if i == x.getID():
-            print x.getOffsets()
-            print x.getBehaviors()
-            print x.getAffects(),"\n"
+            print x.getAction("offsets")
+            print x.getAction("behaviors")
+            print x.getAction("affects")
 # for i in mstudents:
 #     print i.getID()
 #     print i.getOffsets()
