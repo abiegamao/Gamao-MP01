@@ -25,8 +25,8 @@ class Student:
 
     def getActions(self):
         for i in self.actions:
-            for x in i:
-                return x
+            return i
+
     def getOffsets(self):
         strx = ""
         for i in self.actions:
@@ -56,8 +56,15 @@ class Student:
 
 
 
+import os
 
-print "hi"
+
+directory = raw_input("Enter Directory Path: ")
+directory.lower()
+
+print directory
+
+
 theList = list()
 theDict = dict()
 with open('files/sample.csv', 'rb') as ifile:
@@ -65,20 +72,6 @@ with open('files/sample.csv', 'rb') as ifile:
     for row in reader:
         theList.append(row)
 
-
-
-
-
-
-# COUNTER , SET THE UNIQUE IDS AND THEIR FREQUENCY
-# for i in range(len(theList)):
-#     if i == 0:
-#         continue
-#     if theList[i][0] not in theDict.keys():
-#         theDict[theList[i][0]] = 1
-#
-#     else:
-#         theDict[theList[i][0]] = theDict[theList[i][0]] + 1
 
 mstudents = list() # ARRAY OF STUDENT CLASSES
 
@@ -99,13 +92,24 @@ for i in range(len(theList)):
 
 
 
+studentIDs=[]
+theDict.keys().sort()
+for i in theDict.keys():
+    studentIDs.append(i)
 
-
-for i in mstudents:
-    print i.getID()
-    print i.getOffsets()
-    print i.getBehaviors()
-    print i.getAffects(),"\n"
+studentIDs.sort()
+for i in studentIDs:
+    print i
+    for x in mstudents:
+        if i == x.getID():
+            print x.getOffsets()
+            print x.getBehaviors()
+            print x.getAffects(),"\n"
+# for i in mstudents:
+#     print i.getID()
+#     print i.getOffsets()
+#     print i.getBehaviors()
+#     print i.getAffects(),"\n"
     # else:
     #     for i in students:
     #         if
