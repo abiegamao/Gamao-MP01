@@ -36,7 +36,7 @@ class Student:
     def __init__(self, studentID):
         self.id=studentID
         self.actions = []
-        self.count = len(self.actions)
+        self.count = self.getActionCount()
 
     def getID(self):
         return self.id
@@ -98,11 +98,6 @@ for i in a.gefFiles():
 
 
 
-
-
-
-
-
 for i in range(len(theList)):
 
     studentID = theList[i][0]
@@ -139,13 +134,15 @@ for i in studentIDs:
 with open('output.csv', 'wb') as ofile:
     # Header
     fieldNames = ['studentid','offset', 'behavior', 'affect']
-    writer = csv.DictWriter(ofile, fieldnames=fieldNames)
+    writer = csv.writer(ofile)
     #writer.writeheader()
     for i in studentIDs:
-        writer.writerow({'studentid': i, 'offset': x.getAction("offsets"), 'behavior': x.getAction("behaviors")})
+        
+        #writer.writerow({'studentid': i, 'offset': x.getAction("offsets"), 'behavior': x.getAction("behaviors")})
         for x in mstudents:
             if i == x.getID():
-                writer.writerow({'offset': x.getAction("offsets"), 'behavior': x.getAction("behaviors")})
+                writer.writerow(i)
+                writer.writerow(['hi','hello'])
 
 
 
