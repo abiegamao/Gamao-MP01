@@ -4,12 +4,14 @@
 # References:  http://www.tutorialspoint.com/python/
 import csv,os
 
-
+# To hide DS STores
 def listdir_nohidden(path):
         for f in os.listdir(path):
             if not f.startswith('.'):
 
                 yield f
+
+# Path Initialization
 class Initialize:
 
     def __init__(self, path):
@@ -27,8 +29,6 @@ class Initialize:
 
     def gefFiles(self):
         return self.files
-
-
 
 
 class Student:
@@ -51,8 +51,8 @@ class Student:
         self.actions.append([offset,behavior,affect])
 
     def getActions(self):
-        for i in self.actions:
-            return i
+        return self.actions
+
     def getEquiv(self,argument):
         switcher = {
         "offsets": 0,
@@ -69,13 +69,24 @@ class Student:
             strx += i[num] + ", "
         return strx
 
+    def getSetOfAction(self,action):
+        action.lower()
+        num = self.getEquiv(action)
+        theList = []
+
+        for i in self.actions:
+            theList.append(i[num])
+
+        return theList
+
+
+
     def __str__(self):
         strx = ""
         strx += self.id
         strx += "\n"
 
         return strx
-
 
 
 theList = list() # APPEND ROWS HERE
@@ -95,7 +106,6 @@ for i in a.gefFiles():
         row1 = next(reader) # SKIP SINCE THIS IS THE HEADER
         for row in reader:
             theList.append(row)
-
 
 
 for i in range(len(theList)):
@@ -119,12 +129,12 @@ for i in theDict.keys():
     studentIDs.append(i)
 
 studentIDs.sort()
+
 for i in studentIDs:
     print i
 
     for x in mstudents:
         if i == x.getID():
-            #print x.getActionCount()
             print x.getAction("offsets")
             print x.getAction("behaviors")
             print x.getAction("affects")
@@ -132,17 +142,16 @@ for i in studentIDs:
 
 # Write the Sorted CleanList
 with open('output.csv', 'wb') as ofile:
-    # Header
-    fieldNames = ['studentid','offset', 'behavior', 'affect']
     writer = csv.writer(ofile)
-    #writer.writeheader()
+
     for i in studentIDs:
-        
-        #writer.writerow({'studentid': i, 'offset': x.getAction("offsets"), 'behavior': x.getAction("behaviors")})
         for x in mstudents:
             if i == x.getID():
-                writer.writerow(i)
-                writer.writerow(['hi','hello'])
+                writer.writerow([i])
+                writer.writerow(x.getSetOfAction("offsets"))
+                writer.writerow(x.getSetOfAction("behaviors"))
+                writer.writerow(x.getSetOfAction("affects"))
+                writer.writerow(" ")
 
 
 
