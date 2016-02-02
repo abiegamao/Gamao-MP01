@@ -121,8 +121,6 @@ for i in range(len(theList)):
             if studentID == x.getID():
                 x.addActions(theList[i][1],theList[i][2],theList[i][3])
 
-
-
 studentIDs=[]
 theDict.keys().sort()
 for i in theDict.keys():
