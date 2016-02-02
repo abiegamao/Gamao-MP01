@@ -78,17 +78,21 @@ class Student:
 
 
 
-theList = list()
-theDict = dict()
+theList = list() # APPEND ROWS HERE
+theDict = dict() # DICTIONARY OF IDS
+mstudents = list() # ARRAY OF STUDENT CLASSES
+
+# INITIALIZE DIRECTORY
 path = raw_input("Enter Directory Path: ")
 path.lower()
 a = Initialize(path)
 
+# SHOW CONTENT THEN APPEND TO THELIST
 for i in a.gefFiles():
     directory = path + "/" + i
     with open(directory, 'rb') as ifile:
         reader = csv.reader(ifile, delimiter=',')
-        row1 = next(reader)
+        row1 = next(reader) # SKIP SINCE THIS IS THE HEADER
         for row in reader:
             theList.append(row)
 
@@ -97,11 +101,9 @@ for i in a.gefFiles():
 
 
 
-mstudents = list() # ARRAY OF STUDENT CLASSES
+
 
 for i in range(len(theList)):
-    # if i == 0:
-    #     continue
 
     studentID = theList[i][0]
     if studentID not in theDict: # new entry
@@ -133,6 +135,17 @@ for i in studentIDs:
             print x.getAction("affects")
             print ""
 
+# Write the Sorted CleanList
+with open('output.csv', 'wb') as ofile:
+    # Header
+    fieldNames = ['studentid','offset', 'behavior', 'affect']
+    writer = csv.DictWriter(ofile, fieldnames=fieldNames)
+    writer.writeheader()
+    for i in studentIDs:
+        writer.writerow({'studentid': i, 'offset': x.getAction("offsets"), 'behavior': x.getAction("behaviors")})
+        for x in mstudents:
+            if i == x.getID():
+                writer.writerow({'offset': x.getAction("offsets"), 'behavior': x.getAction("behaviors")})
 
 
 
