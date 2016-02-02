@@ -140,7 +140,7 @@ with open('output.csv', 'wb') as ofile:
     # Header
     fieldNames = ['studentid','offset', 'behavior', 'affect']
     writer = csv.DictWriter(ofile, fieldnames=fieldNames)
-    writer.writeheader()
+    #writer.writeheader()
     for i in studentIDs:
         writer.writerow({'studentid': i, 'offset': x.getAction("offsets"), 'behavior': x.getAction("behaviors")})
         for x in mstudents:
